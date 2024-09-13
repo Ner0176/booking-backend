@@ -8,6 +8,7 @@ import * as EmailValidator from 'email-validator';
 
 @Injectable()
 export class AuthService {
+  private readonly MIN_PSWD_LENGTH = 8;
   private readonly logger = new Logger(AuthService.name);
 
   constructor(
@@ -21,7 +22,11 @@ export class AuthService {
   async register(data: RegisterPayload) {
     const { name, email, phone, password } = data;
 
-    if (!name || password.length < 6 || !EmailValidator.validate(email)) {
+    if (
+      !name ||
+      !EmailValidator.validate(email) ||
+      password.length < this.MIN_PSWD_LENGTH
+    ) {
       this.logger.error('Invalid payload fields');
       throw new HttpException('Invalid payload fields', HttpStatus.BAD_REQUEST);
     }
@@ -74,6 +79,33 @@ export class AuthService {
   async login(data: LoginPayload) {
     const { email, password } = data;
 
-    await this.userRepository.findOne({ where: { email } });
+    if (
+      !EmailValidator.validate(email) ||
+      password.length < this.MIN_PSWD_LENGTH
+    ) {
+      this.logger.error('Invalid payload fields');
+      throw new HttpException('Invalid payload fields', HttpStatus.BAD_REQUEST);
+    }
+
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) {
+      this.logger.error('No account found with this email address');
+      throw new HttpException(
+        'No account found with this email address',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const equalPasswords = await bcrypt.compare(password, user.auth.password);
+
+    if (!equalPasswords) {
+      this.logger.error('Password is not correct');
+      throw new HttpException(
+        'Password is not correct',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    return user;
   }
 }

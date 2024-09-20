@@ -11,5 +11,5 @@ export const getOrmConfig = (): DataSourceOptions => ({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+  migrations: [__dirname + '/src/migrations/*{.ts,.js}'],
 });

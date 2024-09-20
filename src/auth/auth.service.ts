@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { InjectConnection, InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Auth, User } from 'src/entities';
 import { DataSource, Repository } from 'typeorm';
 import { LoginPayload, RegisterPayload } from './auth.interface';

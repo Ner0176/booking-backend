@@ -18,7 +18,7 @@ export class Auth {
   @Column({ type: 'timestamp', nullable: true })
   lastLogin: Date;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: User;
 }

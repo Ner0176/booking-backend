@@ -24,7 +24,7 @@ export class AuthController {
     } catch (e) {
       this.logger.error(`An error ocurred while trying to register: ${e}`);
       throw new HttpException(
-        'An error ocurred while trying to register:',
+        'An error ocurred while trying to register',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

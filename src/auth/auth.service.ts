@@ -87,7 +87,10 @@ export class AuthService {
       throw new HttpException('Invalid payload fields', HttpStatus.BAD_REQUEST);
     }
 
-    const user = await this.userRepository.findOne({ where: { email } });
+    const user = await this.userRepository.findOne({
+      where: { email },
+      relations: ['auth'],
+    });
     if (!user) {
       this.logger.error('No account found with this email address');
       throw new HttpException(
@@ -106,6 +109,7 @@ export class AuthService {
       );
     }
 
-    return user;
+    const { auth, ...userNoAuth } = user;
+    return userNoAuth;
   }
 }

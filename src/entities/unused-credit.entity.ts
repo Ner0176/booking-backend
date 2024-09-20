@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './user.entity.entity';
+import { User } from './user.entity';
 
 @Entity()
 export class UnusedCredit {

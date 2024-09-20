@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Auth } from './auth.entity';
-import { UnusedCredit } from './unused-credit';
-import { RecurringSchedule } from './recurring-schedule';
-import { Reservation } from './reservation';
+import { UnusedCredit } from './unused-credit.entity';
+import { RecurringSchedule } from './recurring-schedule.entity';
+import { Reservation } from './reservation.entity';
 
 @Entity()
 export class User {

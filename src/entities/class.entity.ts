@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { DayOfWeek } from './dto';
-import { RecurringSchedule } from './recurring-schedule';
-import { Reservation } from './reservation';
+import { RecurringSchedule } from './recurring-schedule.entity';
+import { Reservation } from './reservation.entity';
 
 @Entity()
 export class Class {

@@ -10,8 +10,8 @@ import { AppDataSource } from '../data-source';
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
-        autoLoadEntities: true,
         ...AppDataSource.options,
+        autoLoadEntities: true,
       }),
     }),
   ],

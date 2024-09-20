@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ReservationStatus } from './dto';
 import { Class } from './class.entity';
-import { User } from './user.entity';
+import { User } from './user.entity.entity';
 
 @Entity()
 export class Reservation {

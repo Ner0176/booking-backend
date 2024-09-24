@@ -7,18 +7,18 @@ import {
   Logger,
   Param,
 } from '@nestjs/common';
-import { AdminService } from './admin.service';
+import { UserService } from './user.service';
 
-@Controller('admin')
-export class AdminController {
-  private readonly logger = new Logger(AdminController.name);
+@Controller('user')
+export class UserController {
+  private readonly logger = new Logger(UserController.name);
 
-  constructor(private adminService: AdminService) {}
+  constructor(private userService: UserService) {}
 
-  @Get('clients')
-  async getAllClients() {
+  @Get('listAll')
+  async getAllUsers() {
     try {
-      return await this.adminService.getUsersInfo();
+      return await this.userService.getUsersList();
     } catch (e) {
       this.logger.error(
         `An error ocurred while getting all clients information: ${e}`,
@@ -30,10 +30,10 @@ export class AdminController {
     }
   }
 
-  @Delete(':clientId')
-  async removeClient(@Param('clientId') clientId: string) {
+  @Delete(':userId')
+  async removeClient(@Param('userId') clientId: string) {
     try {
-      await this.adminService.removeClient(clientId);
+      await this.userService.removeUser(clientId);
     } catch (e) {
       this.logger.error(
         `An error ocurred while trying to delete the client (id: ${clientId}): ${e}`,

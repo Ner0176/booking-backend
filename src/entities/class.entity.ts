@@ -9,10 +9,10 @@ export class Class {
   id: string;
 
   @Column()
-  start: Date;
+  start: string;
 
   @Column()
-  end: Date;
+  end: string;
 
   @Column({ type: 'enum', enum: DayOfWeek })
   day_of_week: DayOfWeek;
@@ -20,7 +20,7 @@ export class Class {
   @Column()
   capacity: number;
 
-  @Column()
+  @Column({ default: 0 })
   current_count: number;
 
   @OneToMany(() => RecurringSchedule, (schedule) => schedule.class, {

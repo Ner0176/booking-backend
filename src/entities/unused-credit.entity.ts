@@ -7,7 +7,7 @@ export class UnusedCredit {
   id: string;
 
   @Column()
-  expiration_date: Date;
+  expirationDate: Date;
 
   @ManyToOne(() => User, (user) => user.unusedCredits)
   user: User;

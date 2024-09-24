@@ -15,13 +15,13 @@ export class Class {
   end: string;
 
   @Column({ type: 'enum', enum: DayOfWeek })
-  day_of_week: DayOfWeek;
+  weekDay: DayOfWeek;
 
   @Column()
   capacity: number;
 
   @Column({ default: 0 })
-  current_count: number;
+  currentCount: number;
 
   @OneToMany(() => RecurringSchedule, (schedule) => schedule.class, {
     nullable: true,

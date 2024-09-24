@@ -12,7 +12,7 @@ export class Reservation {
   status: ReservationStatus;
 
   @Column()
-  last_modification: Date;
+  lastModification: Date;
 
   @ManyToOne(() => Class, (classEnt) => classEnt.reservations)
   class: Class;

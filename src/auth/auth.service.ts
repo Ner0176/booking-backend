@@ -2,13 +2,11 @@ import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Auth, User } from 'src/entities';
 import { DataSource, Repository } from 'typeorm';
-import { LoginPayload, RegisterPayload } from './auth.interface';
 import * as bcrypt from 'bcrypt';
-import * as EmailValidator from 'email-validator';
+import { LoginDto, RegisterDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
-  private readonly MIN_PSWD_LENGTH = 8;
   private readonly logger = new Logger(AuthService.name);
 
   constructor(
@@ -19,17 +17,8 @@ export class AuthService {
     private authRepository: Repository<Auth>,
   ) {}
 
-  async register(data: RegisterPayload) {
+  async register(data: RegisterDto) {
     const { name, email, phone, password } = data;
-
-    if (
-      !name ||
-      !EmailValidator.validate(email) ||
-      password.length < this.MIN_PSWD_LENGTH
-    ) {
-      this.logger.error('Invalid payload fields');
-      throw new HttpException('Invalid payload fields', HttpStatus.BAD_REQUEST);
-    }
 
     const alreadyExist = await this.userRepository.findOne({
       where: { email },
@@ -76,16 +65,8 @@ export class AuthService {
     }
   }
 
-  async login(data: LoginPayload) {
+  async login(data: LoginDto) {
     const { email, password } = data;
-
-    if (
-      !EmailValidator.validate(email) ||
-      password.length < this.MIN_PSWD_LENGTH
-    ) {
-      this.logger.error('Invalid payload fields');
-      throw new HttpException('Invalid payload fields', HttpStatus.BAD_REQUEST);
-    }
 
     const user = await this.userRepository.findOne({
       where: { email },

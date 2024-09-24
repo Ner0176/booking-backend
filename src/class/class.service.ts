@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
-import { Class, User } from 'src/entities';
+import { Class } from 'src/entities';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
-import { NewClassPayload } from './class.interface';
+import { CreateClassDto, ModifyClassDto } from './class.dto';
 
 @Injectable()
 export class ClassService {
@@ -13,5 +13,21 @@ export class ClassService {
     private classRepository: Repository<Class>,
   ) {}
 
-  async createClass(data: NewClassPayload) {}
+  async getClassesList() {
+    return await this.classRepository.find();
+  }
+
+  async createClass(data: CreateClassDto) {
+    const newClass = this.classRepository.create(data);
+    await this.classRepository.save(newClass);
+  }
+
+  async modifyClass(data: ModifyClassDto) {
+    const { id, start, end, capacity, weekDay } = data;
+    await this.classRepository.update(id, { capacity, start, end, weekDay });
+  }
+
+  async deleteClass(id: string) {
+    await this.classRepository.delete(id);
+  }
 }

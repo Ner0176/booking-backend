@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { DayOfWeek } from './dto';
 import { RecurringSchedule } from './recurring-schedule.entity';
 import { Reservation } from './reservation.entity';
 
@@ -9,13 +8,13 @@ export class Class {
   id: string;
 
   @Column()
+  date: Date;
+
+  @Column({ type: 'time' })
   start: string;
 
-  @Column()
+  @Column({ type: 'time' })
   end: string;
-
-  @Column({ type: 'enum', enum: DayOfWeek })
-  weekDay: DayOfWeek;
 
   @Column()
   capacity: number;

@@ -31,9 +31,9 @@ export class UserController {
   }
 
   @Delete(':userId')
-  async removeClient(@Param('userId') clientId: string) {
+  async deleteUser(@Param('userId') clientId: string) {
     try {
-      await this.userService.removeUser(clientId);
+      await this.userService.deleteUser(clientId);
     } catch (e) {
       this.logger.error(
         `An error ocurred while trying to delete the client (id: ${clientId}): ${e}`,

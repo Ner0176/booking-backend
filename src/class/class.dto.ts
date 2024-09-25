@@ -1,11 +1,20 @@
 import {
+  IsDateString,
   IsEnum,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
   IsString,
 } from 'class-validator';
-import { DayOfWeek } from 'src/entities';
+
+export enum DayOfWeek {
+  MONDAY = 0,
+  TUESDAY = 1,
+  WEDNESDAY = 2,
+  THURSDAY = 3,
+  FRIDAY = 4,
+  SATURDAY = 5,
+  SUNDAY = 6,
+}
 
 export class CreateClassDto {
   @IsString()
@@ -16,15 +25,22 @@ export class CreateClassDto {
   @IsNotEmpty()
   start: string;
 
-  @IsNumber()
   capacity: number;
 
+  @IsOptional()
   @IsEnum(DayOfWeek)
-  weekDay: DayOfWeek;
+  weekDay?: DayOfWeek;
+
+  @IsOptional()
+  @IsDateString()
+  date?: string;
+
+  @IsOptional()
+  @IsDateString()
+  recurrencyLimit?: string;
 }
 
 export class ModifyClassDto {
-  @IsNumber()
   id: number;
 
   @IsString()
@@ -37,7 +53,6 @@ export class ModifyClassDto {
   @IsOptional()
   start?: string;
 
-  @IsNumber()
   @IsOptional()
   capacity?: number;
 

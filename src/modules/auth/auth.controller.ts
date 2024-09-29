@@ -7,9 +7,9 @@ import {
   Controller,
   HttpException,
 } from '@nestjs/common';
+import { Public } from 'src/decorators';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './auth.dto';
-import { Public } from 'src/decorators';
 
 @Public()
 @Controller('auth')

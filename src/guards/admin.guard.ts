@@ -5,7 +5,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { JWTokenDto } from '../auth.dto';
+import { JWTokenDto } from 'src/modules';
 
 @Injectable()
 export class AdminGuard implements CanActivate {

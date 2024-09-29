@@ -1,11 +1,11 @@
 import {
-  Controller,
-  Delete,
   Get,
-  HttpException,
-  HttpStatus,
-  Logger,
   Param,
+  Delete,
+  Logger,
+  HttpStatus,
+  Controller,
+  HttpException,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 

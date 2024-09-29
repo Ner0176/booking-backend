@@ -1,9 +1,9 @@
-import { DataSource, Repository } from 'typeorm';
-import { Class } from 'src/entities';
-import { InjectRepository } from '@nestjs/typeorm';
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { CreateClassDto, ModifyClassDto } from './class.dto';
 import { RRule } from 'rrule';
+import { Class } from 'src/entities';
+import { DataSource, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { CreateClassDto, ModifyClassDto } from './class.dto';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class ClassService {

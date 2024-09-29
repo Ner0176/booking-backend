@@ -1,14 +1,14 @@
 import {
-  Body,
-  Controller,
-  Delete,
   Get,
-  HttpException,
-  HttpStatus,
-  Logger,
+  Body,
+  Post,
   Param,
   Patch,
-  Post,
+  Delete,
+  Logger,
+  Controller,
+  HttpStatus,
+  HttpException,
 } from '@nestjs/common';
 import { ClassService } from './class.service';
 import { CreateClassDto, ModifyClassDto } from './class.dto';

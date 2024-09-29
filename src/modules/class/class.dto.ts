@@ -1,9 +1,9 @@
 import {
-  IsDateString,
   IsEnum,
-  IsNotEmpty,
-  IsOptional,
   IsString,
+  IsOptional,
+  IsNotEmpty,
+  IsDateString,
 } from 'class-validator';
 
 export enum DayOfWeek {

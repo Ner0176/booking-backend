@@ -1,6 +1,8 @@
 import {
+  IsBoolean,
   IsEmail,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -8,6 +10,17 @@ import {
 } from 'class-validator';
 
 const MIN_PSWD_LENGTH = 8;
+
+export class JWTokenDto {
+  @IsNumber()
+  id: number;
+
+  @IsString()
+  email: string;
+
+  @IsBoolean()
+  isAdmin: boolean;
+}
 
 export class RegisterDto {
   @IsString()

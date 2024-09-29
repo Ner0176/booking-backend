@@ -30,8 +30,7 @@ export class ClassService {
       );
     }
 
-    let dates: Date[] = [new Date(date)];
-
+    let dates: Date[] = [];
     if (!date) {
       const rule = new RRule({
         freq: RRule.WEEKLY,
@@ -40,7 +39,7 @@ export class ClassService {
         until: new Date(recurrencyLimit),
       });
       dates = rule.all();
-    }
+    } else dates.push(new Date(date));
 
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();

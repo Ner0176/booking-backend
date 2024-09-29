@@ -1,15 +1,17 @@
 import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpException,
-  HttpStatus,
-  Logger,
   Post,
+  Body,
+  Logger,
+  HttpCode,
+  HttpStatus,
+  Controller,
+  HttpException,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto, RegisterDto } from './auth.dto';
+import { Public } from 'src/decorators';
 
+@Public()
 @Controller('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);

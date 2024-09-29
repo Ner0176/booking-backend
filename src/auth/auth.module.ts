@@ -1,12 +1,28 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtAuthGuard } from './guards';
+import { APP_GUARD } from '@nestjs/core';
+import { Auth, User } from 'src/entities';
 import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Auth, User } from 'src/entities';
+import { PassportModule } from '@nestjs/passport';
+import { AuthController } from './auth.controller';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
-  providers: [AuthService],
   controllers: [AuthController],
-  imports: [TypeOrmModule.forFeature([User, Auth])],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
+  imports: [
+    PassportModule,
+    TypeOrmModule.forFeature([User, Auth]),
+    JwtModule.register({
+      secret: process.env.JWT_TOKEN,
+      signOptions: { expiresIn: '30m' },
+    }),
+  ],
 })
 export class AuthModule {}

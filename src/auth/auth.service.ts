@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Auth, User } from 'src/entities';
 import { DataSource, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { LoginDto, RegisterDto } from './auth.dto';
+import { JWTokenDto, LoginDto, RegisterDto } from './auth.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -11,6 +12,7 @@ export class AuthService {
 
   constructor(
     private dataSource: DataSource,
+    private jwtService: JwtService,
     @InjectRepository(User)
     private userRepository: Repository<User>,
     @InjectRepository(Auth)
@@ -52,7 +54,11 @@ export class AuthService {
 
       await queryRunner.commitTransaction();
 
-      return savedUser;
+      return this.jwtService.sign({
+        id: savedUser.id,
+        email: savedUser.email,
+        isAdmin: savedUser.isAdmin,
+      } as JWTokenDto);
     } catch (e) {
       await queryRunner.rollbackTransaction();
       this.logger.error('Error during user registration', e);
@@ -91,6 +97,11 @@ export class AuthService {
     }
 
     const { auth, ...userNoAuth } = user;
-    return userNoAuth;
+
+    return this.jwtService.sign({
+      id: userNoAuth.id,
+      email: userNoAuth.email,
+      isAdmin: userNoAuth.isAdmin,
+    } as JWTokenDto);
   }
 }

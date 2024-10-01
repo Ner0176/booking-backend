@@ -55,7 +55,7 @@ export class AuthService {
       await queryRunner.commitTransaction();
 
       return this.jwtService.sign({
-        id: savedUser.id,
+        sub: savedUser.id,
         email: savedUser.email,
         isAdmin: savedUser.isAdmin,
       } as JWTokenDto);
@@ -99,7 +99,7 @@ export class AuthService {
     const { auth, ...userNoAuth } = user;
 
     return this.jwtService.sign({
-      id: userNoAuth.id,
+      sub: userNoAuth.id,
       email: userNoAuth.email,
       isAdmin: userNoAuth.isAdmin,
     } as JWTokenDto);

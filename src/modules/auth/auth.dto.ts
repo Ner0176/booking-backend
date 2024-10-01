@@ -13,7 +13,7 @@ const MIN_PSWD_LENGTH = 8;
 
 export class JWTokenDto {
   @IsNumber()
-  id: number;
+  sub: number;
 
   @IsString()
   email: string;

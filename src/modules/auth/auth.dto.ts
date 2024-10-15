@@ -19,7 +19,8 @@ export class JWTokenDto {
   email: string;
 
   @IsBoolean()
-  isAdmin: boolean;
+  @IsOptional()
+  isAdmin?: boolean;
 }
 
 export class RegisterDto {
@@ -30,9 +31,9 @@ export class RegisterDto {
   @IsEmail()
   email: string;
 
-  @IsOptional()
-  @IsString()
   @Length(9)
+  @IsString()
+  @IsOptional()
   phone?: string;
 
   @IsString()

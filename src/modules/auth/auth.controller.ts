@@ -18,15 +18,15 @@ export class AuthController {
 
   constructor(private authService: AuthService) {}
 
-  @Post('register')
+  @Post('signUp')
   @HttpCode(HttpStatus.OK)
-  async register(@Body() payload: RegisterDto) {
+  async signUp(@Body() payload: RegisterDto) {
     try {
-      return await this.authService.register(payload);
+      return await this.authService.signUp(payload);
     } catch (e) {
-      this.logger.error(`An error ocurred while trying to register: ${e}`);
+      this.logger.error(`An error ocurred while trying to sign up: ${e}`);
       throw new HttpException(
-        'An error ocurred while trying to register',
+        'An error ocurred while trying to sign up',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

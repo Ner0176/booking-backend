@@ -19,7 +19,7 @@ export class AuthService {
     private authRepository: Repository<Auth>,
   ) {}
 
-  async register(data: RegisterDto) {
+  async signUp(data: RegisterDto) {
     const { name, email, phone, password } = data;
 
     const alreadyExist = await this.userRepository.findOne({
@@ -57,7 +57,6 @@ export class AuthService {
       return this.jwtService.sign({
         sub: savedUser.id,
         email: savedUser.email,
-        isAdmin: savedUser.isAdmin,
       } as JWTokenDto);
     } catch (e) {
       await queryRunner.rollbackTransaction();

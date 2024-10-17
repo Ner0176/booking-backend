@@ -24,10 +24,12 @@ export class AuthController {
     try {
       return await this.authService.signUp(payload);
     } catch (e) {
-      this.logger.error(`An error ocurred while trying to sign up: ${e}`);
+      this.logger.error(
+        `An error ocurred while trying to sign up: ${e.message}`,
+      );
       throw new HttpException(
-        'An error ocurred while trying to sign up',
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        `An error ocurred while trying to sign up: ${e.message}`,
+        e.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
@@ -38,10 +40,10 @@ export class AuthController {
     try {
       return await this.authService.login(payload);
     } catch (e) {
-      this.logger.error(`An error ocurred while trying to login: ${e}`);
+      this.logger.error(`An error ocurred while trying to login: ${e.message}`);
       throw new HttpException(
-        'An error ocurred trying to login',
-        HttpStatus.INTERNAL_SERVER_ERROR,
+        `An error ocurred while trying to login: ${e.message}`,
+        e.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }

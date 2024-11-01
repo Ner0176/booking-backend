@@ -20,9 +20,10 @@ export class ClassService {
   }
 
   async createClass(data: CreateClassDto) {
-    const { start, end, capacity, date, weekDay, recurrencyLimit } = data;
+    const { startDate, endDate, capacity, date, weekDay, startTime, endTime } =
+      data;
 
-    if (!date && (!weekDay || !recurrencyLimit)) {
+    if (!date && (!weekDay || !startDate || !endDate)) {
       this.logger.error('It is needed a date for creating a class');
       throw new HttpException(
         'It is needed a date for creating a class',
@@ -34,9 +35,9 @@ export class ClassService {
     if (!date) {
       const rule = new RRule({
         freq: RRule.WEEKLY,
-        dtstart: new Date(),
+        dtstart: new Date(startDate),
         byweekday: [weekDay],
-        until: new Date(recurrencyLimit),
+        until: new Date(endDate),
       });
       dates = rule.all();
     } else dates.push(new Date(date));
@@ -48,10 +49,10 @@ export class ClassService {
     try {
       for (let i = 0; i < dates.length; i++) {
         const newClass = this.classRepository.create({
-          end,
-          start,
           capacity,
+          end: endTime,
           date: dates[i],
+          start: startTime,
         });
         await queryRunner.manager.save(newClass);
       }

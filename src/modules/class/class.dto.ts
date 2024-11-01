@@ -18,26 +18,30 @@ export enum DayOfWeek {
 
 export class CreateClassDto {
   @IsString()
-  @IsNotEmpty()
-  end: string;
+  @IsOptional()
+  startDate?: string;
 
   @IsString()
-  @IsNotEmpty()
-  start: string;
-
-  capacity: number;
-
   @IsOptional()
-  @IsEnum(DayOfWeek)
-  weekDay?: DayOfWeek;
+  endDate?: string;
 
   @IsOptional()
   @IsDateString()
   date?: string;
 
   @IsOptional()
-  @IsDateString()
-  recurrencyLimit?: string;
+  @IsEnum(DayOfWeek)
+  weekDay?: DayOfWeek;
+
+  capacity: number;
+
+  @IsString()
+  @IsNotEmpty()
+  startTime: string;
+
+  @IsString()
+  @IsNotEmpty()
+  endTime: string;
 }
 
 export class ModifyClassDto {
